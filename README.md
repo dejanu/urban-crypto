@@ -10,7 +10,16 @@ curl http:/127.0.0.1:5000/now # USD BTC price
 ```
 ## Create Kubernetes cluster in Azure, AWS or GCP, using Pulumi or Terraform:
 
-* Set up a K8S cluster with the latest stable version, with RBAC enabled.
+* Set up a K8S cluster with the latest stable version, with RBAC enabled:
+```bash
+# To enable RBAC, start the API server with the --authorization-mode flag set to a comma-separated list that includes RBAC; for example:
+kube-apiserver --authorization-mode=Example,RBAC  ...
+
+# check if RBAC is enabled for AKS
+az aks list -o table
+az aks show -g <resource group name> -n <cluster name> --query enableRbac
+```
+
 * The Cluster should have 2 services deployed – Service A and Service B:
 * Service A is a WebServer written in C#, Go or Python that exposes the following:
   * Current value of Bitcoin in USD (updated every 10 seconds taken from an API on the web, like https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD).
