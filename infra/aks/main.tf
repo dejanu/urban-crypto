@@ -12,7 +12,7 @@ provider "azurerm" {
 }
 
 resource "azurerm_resource_group" "rg" {
-  name     = "srelearnResourceGroup"
+  name     = "${var.rg_name}"
   location = "${var.location}"
 }
 
@@ -28,7 +28,6 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     vm_size    = "Standard_D2_v2"
   }
 
-// must define either a dns_prefix or a dns_prefix_private_cluster
 identity {
     type = "SystemAssigned"
   }
@@ -50,9 +49,8 @@ output "client_certificate" {
   sensitive = true
 }
 
-/*
+
 output "kube_config" {
   value = azurerm_kubernetes_cluster.cluster.kube_config_raw
   sensitive = true
 }
-*/
