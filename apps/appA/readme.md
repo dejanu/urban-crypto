@@ -15,6 +15,9 @@ pip install -r requirements.txt
 export FLASK_APP=appa.py
 flask run --host=0.0.0.0
 
-# check endpoint
+docker run --rm -p 5000:5000 dejanualex/app_a:1.0
+
+# check endpoints
+curl http://127.0.0.1:5000/now
 curl http://127.0.0.1:5000/now
 ```

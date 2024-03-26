@@ -9,10 +9,9 @@ app = Flask(__name__)
 CRYPTOCOMPARE_API_URL = "https://min-api.cryptocompare.com/data/price"
 CRYPTOCOMPARE_PARAMS = {"fsym": "BTC", "tsyms": "USD"}
 
-
 def get_btc_value():
     """
-    update btc_values dict
+    get btc value
     """
     try:
         response = requests.get(CRYPTOCOMPARE_API_URL, params=CRYPTOCOMPARE_PARAMS)
@@ -24,7 +23,7 @@ def get_btc_value():
 
 # Schedule the job to fetch Bitcoin value every 10 seconds
 scheduler = BackgroundScheduler()
-scheduler.add_job(get_btc_value, 'interval', seconds=5)
+scheduler.add_job(get_btc_value, 'interval', seconds=10)
 scheduler.start()
 # Fetch Bitcoin value initially
 get_btc_value()
@@ -45,7 +44,7 @@ def get_now():
         response = requests.get(CRYPTOCOMPARE_API_URL, params=CRYPTOCOMPARE_PARAMS)
         response.raise_for_status()  # Raise an exception for 4xx/5xx status codes
         data = response.json()
-        return jsonify(data)
+        return "<p><b>BTC currentvalue:{0}</p></b>".format(data)
     except requests.exceptions.RequestException as e:
         return f"Error: {e}"
 
@@ -57,9 +56,9 @@ def get_tensec():
     # get the last key from dict btc_values btc_values[list(btc_values.keys())[-1]]
     bitcoin_value = app.config.get('bitcoin_value')
     if bitcoin_value:
-        return jsonify(bitcoin_value)
+        return "<p><b>BTC value:{0}</p></b>".format(bitcoin_value)
     else:
-        return "Bitcoin value not available at the moment"
+        return "Bitcoin value not available at the moment, for instant value check /now endpoint"
  
 if __name__ == "__main__":
     app.run(debug=True)
