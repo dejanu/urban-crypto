@@ -52,15 +52,22 @@ terraform apply main.destroy.tfplan
 
 * Check infra:
 ```bash
-# install ingress controller
-kubectl --kubeconfig kubeconfig apply -f ingress_constroller/ingress_controller.yaml
-
-# check ingress class name
-kubectl get ingressclasses.networking.k8s.io
-
 # check k8s context
 kubectl --kubeconfig kubeconfig config current-context
+
+# install ingress controller
+kubectl --kubeconfig kubeconfig apply -f ../ingress_controller/ingress_controller.yaml
+
+# check ingress class name
+kubectl --kubeconfig kubeconfig get ingressclasses.networking.k8s.io
+
+# To enable RBAC, start the API server with the --authorization-mode flag set to a comma-separated list that includes RBAC; for example kube-apiserver --authorization-mode=Example,RBAC  ...
+
+# check if RBAC is enabled for AKS
+az aks list -o table
+az aks show -g <resource group name> -n <cluster name> --query enableRbac
 ```
+
 ## Links
 
 * [aks-terraform](https://learn.microsoft.com/en-us/azure/aks/learn/quick-kubernetes-deploy-terraform?tabs=bash&pivots=development-environment-azure-cli)
