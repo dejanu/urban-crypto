@@ -1,5 +1,5 @@
 variable "rg_name" {
-  default = "rg_sre"
+  default = "sre_resourcegroup"
   type = string
   description = "The Name of the resource group"
 }

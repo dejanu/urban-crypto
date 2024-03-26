@@ -48,9 +48,7 @@ terraform plan -destroy -out main.destroy.tfplan
 terraform apply main.destroy.tfplan
 ```
 
-* State file:
-
-    *  State file is either stored locally or on a remote backend
+* State file is either stored locally (alternatively a remote backend can be used).
 
 * Check infra:
 ```bash
