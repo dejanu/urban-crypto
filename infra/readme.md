@@ -52,8 +52,14 @@ terraform apply main.destroy.tfplan
 
 * Check infra:
 ```bash
+# install ingress controller
+kubectl --kubeconfig kubeconfig apply -f ingress_constroller/ingress_controller.yaml
+
+# check ingress class name
+kubectl get ingressclasses.networking.k8s.io
+
 # check k8s context
-kubectl --kubeconfig kubeconfig config  current-context
+kubectl --kubeconfig kubeconfig config current-context
 ```
 ## Links
 
