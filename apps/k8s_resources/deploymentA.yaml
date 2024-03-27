@@ -3,24 +3,24 @@ kind: Deployment
 metadata:
   creationTimestamp: null
   labels:
-    app: deployment-a
-  name: deployment-a
+    app: app-a
+  name: app-a
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: deployment-a
+      app: app-a
   strategy: {}
   template:
     metadata:
       creationTimestamp: null
       labels:
-        app: deployment-a
+        app: app-a
     spec:
       containers:
       - image: dejanualex/app_a:1.0
-        name: app-a-st2qz
+        name: app-a-58z95
         ports:
         - containerPort: 5000
         resources: {}

@@ -3,7 +3,7 @@ kind: Service
 metadata:
   creationTimestamp: null
   labels:
-    app: deployment-a
+    app: app-a
   name: svc-a
   namespace: default
 spec:
@@ -12,6 +12,6 @@ spec:
     protocol: TCP
     targetPort: 5000
   selector:
-    app: deployment-a
+    app: app-a
 status:
   loadBalancer: {}
