@@ -1,4 +1,4 @@
-# urban-telegram
+# urban-crypto
 
 ## Scope
 * Set up a K8S cluster with the latest stable version, with RBAC enabled.
@@ -18,12 +18,10 @@
 
 * Documentation [here](https://github.com/dejanu/urban-telegram/blob/main/infra/readme.md)
 
-### appA 
+### Apps
 
-* Documentation [here](https://github.com/dejanu/urban-telegram/blob/main/apps/appA/readme.md)
-
-### appB
+* Documentation [here](https://github.com/dejanu/urban-telegram/blob/main/apps/readme.md)
 
 
 
- 
+
