@@ -194,3 +194,5 @@ override.tf.json
 .terraformrc
 terraform.rc
 
+# stuff
+./infra/aks/env_vars.sh
