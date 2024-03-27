@@ -48,14 +48,14 @@ terraform plan -destroy -out main.destroy.tfplan
 terraform apply main.destroy.tfplan
 ```
 
-* State file is either stored locally (alternatively a remote backend can be used).
+* State file is either stored **locally** (alternatively a remote backend can be used).
 
 * Check infra:
 ```bash
 # check k8s context
 kubectl --kubeconfig kubeconfig config current-context
 
-# install ingress controller
+# install unmanaged ingress controller
 kubectl --kubeconfig kubeconfig apply -f ../ingress_controller/ingress_controller.yaml
 
 # check ingress class name
@@ -66,6 +66,9 @@ kubectl --kubeconfig kubeconfig get ingressclasses.networking.k8s.io
 # check if RBAC is enabled for AKS
 az aks list -o table
 az aks show -g <resource group name> -n <cluster name> --query enableRbac
+
+# check DNS 
+az aks show --resource-group <resource group name> --name <cluster name> --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
 ```
 
 ## Links

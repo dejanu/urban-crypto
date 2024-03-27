@@ -28,6 +28,13 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     vm_size    = "Standard_D2_v2"
   }
 
+# enable HTTP Application Routing addon, which provides an ingress controller
+addon_profile {
+    http_application_routing {
+      enabled = true
+    }
+}
+
 identity {
     type = "SystemAssigned"
   }
