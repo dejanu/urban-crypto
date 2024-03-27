@@ -7,17 +7,17 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: localhost
+    - host: crypto
       http:
         paths:
-          - path: /servicea
+          - path: /svca
             pathType: Prefix
             backend:
               service:
                 name: svc-a
                 port:
                   number: 5000
-          - path: /serviceb
+          - path: /svcb
             pathType: Prefix
             backend:
               service:
