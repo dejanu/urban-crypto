@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: app-b
+  name: app-b
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-b
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: app-b
+    spec:
+      containers:
+      - image: dejanualex/app_b:1.0
+        name: app-b-k4pnv
+        ports:
+        - containerPort: 8888
+        resources: {}
+status: {}
