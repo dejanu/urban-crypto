@@ -40,8 +40,10 @@ terraform apply
 # get DNS zone 
 az aks show -g sre_resourcegroup -n sreaks --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
 
-# get the kube-system  addon-http-application-routing-nginx-ingress ip
-# this should be added as a A record in the created DNS zone
+# add kube-system  addon-http-application-routing-nginx-ingress IP as a A record in the created DNS zone
+
+# update in-place the ingress resource with desired A record
+yq e -i '.metadata.annotations."nginx.ingress.kubernetes.io/rewrite-target" = "/"' ingress.yaml | yq e '.spec.rules[].host |= "INSERT_A_RECORD"'
 ```
 * Deploy services:
 ```bash
@@ -52,7 +54,14 @@ kubectl --kubeconfig infra/aks/kubeconfig config current-context
 kubectl --kubeconfig infra/aks/kubeconfig apply -f apps/k8s_resources/
 kubectl --kubeconfig infra/aks/kubeconfig apply -f apps/ingresses/azure_ingress.yaml
 
+# test services
+kubectl --kubeconfig infra/aks/kubeconfig run -it curlopenssl  --image=dejanualex/curlopenssl:1.0  -- sh
+curl svc-b.default.svc.cluster.local:8888/
+curl svc-a.default.svc.cluster.local:5000/
 
+# install ingress controller and resource
+
+yq e '.metadata.annotations."nginx.ingress.kubernetes.io/rewrite-target" = "/"' ingress.yaml | yq e '.spec.rules[].host |= "test.com"'
 ```
 
 ### Documentation
