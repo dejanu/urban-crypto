@@ -12,11 +12,12 @@
 * Service B is a REST API service, that exposes a single controller that responds 200 status code on GET requests.
 * Service A should not be able to communicate with Service B.
 
-### IaC: Create AKS using Terraform
+### Steps
 
-* Prerequisite azure service principal
+* IaC: Create AKS using Terraform:
 
 ```bash
+# Prerequisite azure service principa
 # replace svp credentials
 cat<<EOF>env_vars.sh
 export ARM_SUBSCRIPTION_ID="<azure_subscription_id>"
@@ -27,7 +28,7 @@ EOF
 ```
 
 ```bash
-# load svp and verify credentials env vars
+# load svp credentials as env vars
 source env_vars.sh
 printenv | grep ^ARM*
 ```
@@ -36,32 +37,32 @@ printenv | grep ^ARM*
 ```bash
 cd infra/aks
 terraform apply
-
+```
+* Create DNS record in azure portal:
+```bash
 # get DNS zone 
 az aks show -g sre_resourcegroup -n sreaks --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
 
 # add kube-system  addon-http-application-routing-nginx-ingress IP as a A record in the created DNS zone
 
 # update in-place the ingress resource with desired A record
-yq e -i '.metadata.annotations."nginx.ingress.kubernetes.io/rewrite-target" = "/"' ingress.yaml | yq e '.spec.rules[].host |= "INSERT_A_RECORD"'
+yq -i e '.spec.rules[].host |= "INSERT_RECORD"' apps/k8s_resources/ingress.yaml
 ```
 * Deploy services:
 ```bash
 # check context (should match the value of terraform "clustername" variable)
 kubectl --kubeconfig infra/aks/kubeconfig config current-context
 
+# install nginx ingress controller
+kubectl --kubeconfig infra/aks/kubeconfig apply -f infra/ingress_controller/
+
 # create resources(deploy/svc/ingress)
 kubectl --kubeconfig infra/aks/kubeconfig apply -f apps/k8s_resources/
-kubectl --kubeconfig infra/aks/kubeconfig apply -f apps/ingresses/azure_ingress.yaml
 
 # test services
 kubectl --kubeconfig infra/aks/kubeconfig run -it curlopenssl  --image=dejanualex/curlopenssl:1.0  -- sh
 curl svc-b.default.svc.cluster.local:8888/
 curl svc-a.default.svc.cluster.local:5000/
-
-# install ingress controller and resource
-
-yq e '.metadata.annotations."nginx.ingress.kubernetes.io/rewrite-target" = "/"' ingress.yaml | yq e '.spec.rules[].host |= "test.com"'
 ```
 
 ### Documentation
@@ -69,7 +70,3 @@ yq e '.metadata.annotations."nginx.ingress.kubernetes.io/rewrite-target" = "/"' 
 * App Documentation [here](https://github.com/dejanu/urban-telegram/blob/main/apps/readme.md)
 
 * Infra Documentation [here](https://github.com/dejanu/urban-telegram/blob/main/infra/readme.md)
-
-
-
-
