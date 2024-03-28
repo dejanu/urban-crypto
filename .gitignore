@@ -197,3 +197,4 @@ terraform.rc
 # stuff
 env_vars.sh
 infra/aks/kubeconfig
+infra/aks/.terraform.lock.hcl
