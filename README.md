@@ -12,15 +12,42 @@
 * Service B is a REST API service, that exposes a single controller that responds 200 status code on GET requests.
 * Service A should not be able to communicate with Service B.
 
-## Create Kubernetes cluster in Azure, AWS or GCP, using Pulumi or Terraform:
+### IaC: Create AKS using Terraform
 
-### Terraform IaC
+* Prerequisite azure service principal
 
-* Documentation [here](https://github.com/dejanu/urban-telegram/blob/main/infra/readme.md)
+```bash
+# replace svp credentials
+cat<<EOF>>env_vars.sh
+export ARM_SUBSCRIPTION_ID="<azure_subscription_id>"
+export ARM_TENANT_ID="<azure_subscription_tenant_id>"
+export ARM_CLIENT_ID="<service_principal_appid>"
+export ARM_CLIENT_SECRET="<service_principal_password>"
+EOF
 
-### Apps
+# load svp  and verify credentials  env vars
+source env_vars.sh
+printenv | grep ^ARM*
+```
 
-* Documentation [here](https://github.com/dejanu/urban-telegram/blob/main/apps/readme.md)
+* Create AKS cluster:
+```bash
+cd infra/aks
+terraform apply
+```
+* Deploy services:
+```bash
+# check context (should match the value of terraform "clustername" variable)
+kubectl --kubeconfig infra/aks/kubeconfig config current-context
+
+# create resources(deploy/svc/ingress)
+kubectl --kubeconfig infra/aks/kubeconfig apply -f apps/k8s_resources
+```
+### Documentation
+
+* App Documentation [here](https://github.com/dejanu/urban-telegram/blob/main/apps/readme.md)
+
+* Infra Documentation [here](https://github.com/dejanu/urban-telegram/blob/main/infra/readme.md)
 
 
 
