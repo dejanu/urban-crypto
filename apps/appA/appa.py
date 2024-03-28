@@ -16,8 +16,7 @@ def get_btc_value():
     try:
         response = requests.get(CRYPTOCOMPARE_API_URL, params=CRYPTOCOMPARE_PARAMS)
         response.raise_for_status()  # Raise an exception for 4xx/5xx status codes
-        data = response.json()
-        app.config['bitcoin_value'] = data
+        app.config['bitcoin_value'] = response.json()
     except requests.exceptions.RequestException as e:
         return f"Error: {e}"
 
@@ -36,7 +35,7 @@ def index():
     # get the last key from dict btc_values btc_values[list(btc_values.keys())[-1]]
     bitcoin_value = app.config.get('bitcoin_value')
     if bitcoin_value:
-        return "<p><b>BTC value:{0}</p></b>".format(bitcoin_value)
+        return "<p><hr><center>BTC value:{0}</p></center>".format(bitcoin_value)
     else:
         return "Bitcoin value not available at the moment, for instant value check /now endpoint"
 
@@ -49,7 +48,7 @@ def get_now():
         response = requests.get(CRYPTOCOMPARE_API_URL, params=CRYPTOCOMPARE_PARAMS)
         response.raise_for_status()  # Raise an exception for 4xx/5xx status codes
         data = response.json()
-        return "<p><b>BTC currentvalue:{0}</p></b>".format(data)
+        return "<p><hr><center>BTC currentvalue:{0}</p></center>".format(data)
     except requests.exceptions.RequestException as e:
         return f"Error: {e}"
 
