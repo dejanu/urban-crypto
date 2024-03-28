@@ -196,3 +196,4 @@ terraform.rc
 
 # stuff
 env_vars.sh
+infra/aks/kubeconfig
