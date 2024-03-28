@@ -67,7 +67,7 @@ kubectl --kubeconfig kubeconfig get ingressclasses.networking.k8s.io
 az aks list -o table
 az aks show -g <resource group name> -n <cluster name> --query enableRbac
 
-# check DNS 
+# check DNS zone
 az aks show --resource-group <resource group name> --name <cluster name> --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
 ```
 
