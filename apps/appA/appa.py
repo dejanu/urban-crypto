@@ -31,9 +31,14 @@ get_btc_value()
 @app.route('/')
 def index():
     """
-    home page
+    Value of Bitcoin updated every 10 seconds
     """
-    return '<p><b> Service endpoints /now and /tensec </p></b>'
+    # get the last key from dict btc_values btc_values[list(btc_values.keys())[-1]]
+    bitcoin_value = app.config.get('bitcoin_value')
+    if bitcoin_value:
+        return "<p><b>BTC value:{0}</p></b>".format(bitcoin_value)
+    else:
+        return "Bitcoin value not available at the moment, for instant value check /now endpoint"
 
 @app.route('/now')
 def get_now():
@@ -48,17 +53,5 @@ def get_now():
     except requests.exceptions.RequestException as e:
         return f"Error: {e}"
 
-@app.route('/tensec')
-def get_tensec():
-    """
-    Value of Bitcoin updated every 10 seconds
-    """
-    # get the last key from dict btc_values btc_values[list(btc_values.keys())[-1]]
-    bitcoin_value = app.config.get('bitcoin_value')
-    if bitcoin_value:
-        return "<p><b>BTC value:{0}</p></b>".format(bitcoin_value)
-    else:
-        return "Bitcoin value not available at the moment, for instant value check /now endpoint"
- 
 if __name__ == "__main__":
     app.run(debug=True)
