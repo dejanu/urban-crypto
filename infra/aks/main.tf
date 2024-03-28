@@ -16,6 +16,7 @@ resource "azurerm_resource_group" "rg" {
   location = "${var.location}"
 }
 
+
 resource "azurerm_kubernetes_cluster" "cluster" {
   name                = "${var.clustername}"
   location            = azurerm_resource_group.rg.location
@@ -29,6 +30,7 @@ network_profile {
     outbound_type     = "loadBalancer"
   }
 
+  
   default_node_pool {
     name       = "default"
     node_count = 1
