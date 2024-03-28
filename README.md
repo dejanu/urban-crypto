@@ -36,6 +36,7 @@ printenv | grep ^ARM*
 * Create AKS cluster:
 ```bash
 cd infra/aks
+terraform init
 terraform apply
 ```
 * Create DNS record in Azure portal:
@@ -43,7 +44,7 @@ terraform apply
 # get DNS zone 
 az aks show -g sre_resourcegroup -n sreaks --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
 
-# add kube-system  addon-http-application-routing-nginx-ingress IP as A record in the created DNS zone
+# add addon-http-application-routing-nginx-ingress kube-system public IP as A record in the created DNS zone
 
 # update in-place the ingress resource with desired A record
 yq -i e '.spec.rules[].host |= "INSERT_RECORD"' apps/k8s_resources/ingress.yaml
