@@ -48,7 +48,7 @@ def get_now():
         response = requests.get(CRYPTOCOMPARE_API_URL, params=CRYPTOCOMPARE_PARAMS)
         response.raise_for_status()  # Raise an exception for 4xx/5xx status codes
         data = response.json()
-        return "<p><hr><center>BTC currentvalue:{0}</p></center>".format(data)
+        return "<p><hr><center>BTC current value:{0}</p></center>".format(data)
     except requests.exceptions.RequestException as e:
         return f"Error: {e}"
 
