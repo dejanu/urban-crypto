@@ -65,6 +65,13 @@ curl svc-b.default.svc.cluster.local:8888/
 curl svc-a.default.svc.cluster.local:5000/
 ```
 
+### Cleanup
+
+```bash
+kubectl --kubeconfig infra/aks/kubeconfig delete -f infra/ingress_controller/
+kubectl --kubeconfig infra/aks/kubeconfig delete -f apps/k8s_resources/
+cd infra/aks && terraform destroy
+```
 ### Documentation
 
 * App Documentation [here](https://github.com/dejanu/urban-telegram/blob/main/apps/readme.md)
