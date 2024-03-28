@@ -3,12 +3,12 @@ kind: Ingress
 metadata:
   name: crypto-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+  # this matches the ingress controller label, enabled by the "http_application_routing_enabled" feature of AKS
+    kubernetes.io/ingress.class: addon-http-application-routing
+  # kubernetes.io/ingress.class: azure/application-gateway
 spec:
-  ingressClassName: webapprouting.kubernetes.azure.com
   rules:
-    - host: 7448befe35534f3d9a73.westeurope.aksapp.io
-      http:
+    - http:
         paths:
           - path: /svca
             pathType: Prefix
@@ -21,6 +21,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: svc-a
+                name: svc-b
                 port:
                   number: 8888

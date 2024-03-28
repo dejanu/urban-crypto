@@ -18,14 +18,16 @@
 
 ```bash
 # replace svp credentials
-cat<<EOF>>env_vars.sh
+cat<<EOF>env_vars.sh
 export ARM_SUBSCRIPTION_ID="<azure_subscription_id>"
 export ARM_TENANT_ID="<azure_subscription_tenant_id>"
 export ARM_CLIENT_ID="<service_principal_appid>"
 export ARM_CLIENT_SECRET="<service_principal_password>"
 EOF
+```
 
-# load svp  and verify credentials  env vars
+```bash
+# load svp and verify credentials env vars
 source env_vars.sh
 printenv | grep ^ARM*
 ```
@@ -34,6 +36,12 @@ printenv | grep ^ARM*
 ```bash
 cd infra/aks
 terraform apply
+
+# get DNS zone 
+az aks show -g sre_resourcegroup -n sreaks --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
+
+# get the kube-system  addon-http-application-routing-nginx-ingress ip
+# this should be added as a A record in the created DNS zone
 ```
 * Deploy services:
 ```bash
@@ -41,8 +49,12 @@ terraform apply
 kubectl --kubeconfig infra/aks/kubeconfig config current-context
 
 # create resources(deploy/svc/ingress)
-kubectl --kubeconfig infra/aks/kubeconfig apply -f apps/k8s_resources
+kubectl --kubeconfig infra/aks/kubeconfig apply -f apps/k8s_resources/
+kubectl --kubeconfig infra/aks/kubeconfig apply -f apps/ingresses/azure_ingress.yaml
+
+
 ```
+
 ### Documentation
 
 * App Documentation [here](https://github.com/dejanu/urban-telegram/blob/main/apps/readme.md)

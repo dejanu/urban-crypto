@@ -22,6 +22,13 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   resource_group_name = azurerm_resource_group.rg.name
   dns_prefix          = "${var.clustername}"
 
+# Network plugin to use for networking
+network_profile {
+    network_plugin    = "kubenet"
+    load_balancer_sku = "standard"
+    outbound_type     = "loadBalancer"
+  }
+
   default_node_pool {
     name       = "default"
     node_count = 1
@@ -50,21 +57,12 @@ role_based_access_control {
 
 }
 
-# output "client_certificate" {
-#   value     = azurerm_kubernetes_cluster.cluster.kube_config[0].client_certificate
-#   sensitive = true
-# }
+ output "client_certificate" {
+   value     = azurerm_kubernetes_cluster.cluster.kube_config[0].client_certificate
+   sensitive = true
+ }
 
 output "kube_config" {
   value = azurerm_kubernetes_cluster.cluster.kube_config_raw
   sensitive = true
-}
-
-data "azurerm_public_ip" "example" {
-  name  = reverse(split("/", tolist(azurerm_kubernetes_cluster.cluster.network_profile.0.load_balancer_profile.0.effective_outbound_ips)[0]))[1]
-  resource_group_name = azurerm_kubernetes_cluster.cluster.node_resource_group
-}
-
-output "public_ip_address" {
-  value = data.azurerm_public_ip.example.ip_address
 }
