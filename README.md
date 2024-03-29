@@ -81,4 +81,4 @@ cd infra/aks && terraform destroy
 
 ### Demo
 
-[![DEMO](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=0izJKsnYd_M "AKS cluster demo deployment")
+[![DEMO](http://img.youtube.com/vi/0izJKsnYd_M/0.jpg)](http://www.youtube.com/watch?v=0izJKsnYd_M "AKS cluster demo deployment")
