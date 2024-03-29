@@ -17,7 +17,7 @@
 * IaC: Create AKS using Terraform:
 
 ```bash
-# Prerequisite azure service principa
+# Prerequisite Azure service principal
 # replace svp credentials
 cat<<EOF>env_vars.sh
 export ARM_SUBSCRIPTION_ID="<azure_subscription_id>"
@@ -78,3 +78,7 @@ cd infra/aks && terraform destroy
 * App Documentation [here](https://github.com/dejanu/urban-crypto/blob/main/apps/readme.md)
 
 * Infra Documentation [here](https://github.com/dejanu/urban-crypto/blob/main/infra/readme.md)
+
+### Demo
+
+[![DEMO](http://img.youtube.com/vi/YOUTUBE_VIDEO_ID_HERE/0.jpg)](http://www.youtube.com/watch?v=0izJKsnYd_M "AKS cluster demo deployment")
