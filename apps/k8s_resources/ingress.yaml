@@ -7,7 +7,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: crypto.7caaafc8acf346f891ba.westeurope.aksapp.io
+    - host: crypto.2602acc88f8a4921b475.westeurope.aksapp.io
       http:
         paths:
           - path: /svca

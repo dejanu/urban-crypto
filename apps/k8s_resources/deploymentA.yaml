@@ -19,7 +19,7 @@ spec:
         app: app-a
     spec:
       containers:
-      - image: dejanualex/app_a:1.0
+      - image: dejanualex/app_a:1.1
         name: app-a-58z95
         ports:
         - containerPort: 5000

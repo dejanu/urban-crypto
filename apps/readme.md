@@ -17,7 +17,7 @@ export FLASK_APP=appa.py
 flask run --host=0.0.0.0
 
 # docker container
-docker run --rm -p 5000:5000 dejanualex/app_a:1.0
+docker run --rm -p 5000:5000 dejanualex/app_a:1.1
 
 # check endpoints
 curl http://127.0.0.1:5000/
@@ -50,7 +50,7 @@ curl svc-b.default.svc.cluster.local:8888/
 * Imperative
 ```bash
 # deployments
-kubectl create deploy app-a --image=dejanualex/app_a:1.0 --port=5000
+kubectl create deploy app-a --image=dejanualex/app_a:1.1 --port=5000
 kubectl create deploy app-b --image=dejanualex/app_b:1.0 --port=8888
 
 # services
