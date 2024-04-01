@@ -1,6 +1,6 @@
 ## Terraform
 
-* Terraform only supports authenticating to Azure via the Azure CLI
+* Authenticating to Azure via Service Principal
 ```bash
 az login
 
@@ -16,8 +16,13 @@ az group list -o table
 # list service principals
 az ad sp list --query "[].{id:id,name:displayName}" --show-mine
 
-# create svp 
+# create svp
 az ad sp create-for-rbac --name <service_principal_name> --role Contributor --scopes /subscriptions/<subscription_id>
+
+# service principal authentication tokens 
+appId is the client_id defined above.
+password is the client_secret defined above.
+tenant is the tenant_id defined above.
 ```
 
 * Usage:
