@@ -68,6 +68,9 @@ az aks show -g <resource group name> -n <cluster name> --query enableRbac
 
 # check DNS zone
 az aks show --resource-group <resource group name> --name <cluster name> --query addonProfiles.httpApplicationRouting.config.HTTPApplicationRoutingZoneName
+
+# get creds for AKS
+az aks get-credentials --resource-group sre_resourcegroup --name sreaks -o yaml
 ```
 
 ## Links
