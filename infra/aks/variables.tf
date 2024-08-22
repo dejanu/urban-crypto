@@ -1,5 +1,5 @@
 variable "rg_name" {
-  default = "sre_resourcegroup"
+  default = "sre-demo"
   type = string
   description = "The Name of the resource group"
 }
@@ -11,7 +11,7 @@ variable "location" {
 }
 
 variable "clustername" {
-  default = "sreaks"
+  default = "demoaks"
   type = string
   description = "The name of the Managed Kubernetes Cluster to create"
 }
