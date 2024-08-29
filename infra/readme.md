@@ -34,17 +34,29 @@ terraform init
 # linting of TF files
 terraform validate
 
-# create execution plan topreview changes and resource dependencies 
+
+# generates a speculative execution plan
+terraform plan
+
+# create execution plan to preview changes and resource dependencies 
 terraform plan -out create.tfplan
 
 # analyze tf execution plan: summary of the changes to be made, categorized by “to add,” “to change,” or “to destroy.”
 
+# interactive apply the changes
+terraform apply
+
 # apply the changes required to reach the desired state of the configuration
-terraform terraform apply main.tfplan
+terraform apply main.tfplan
 
 # proposed destroy changes without executing them
 terraform plan -destroy -out destroy.tfplan
 terraform apply destroy.tfplan
+
+# backend: where Terraform stores its state data files
+# by default Terraform uses LOCAL backend, that stores state as local file on disk
+# remote backend
+
 ```
 
 * State file is either stored **locally** (alternatively a remote backend can be used).
