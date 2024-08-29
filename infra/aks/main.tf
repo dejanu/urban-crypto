@@ -5,6 +5,13 @@ terraform {
       version = "=2.48.0"
     }
   }
+
+    backend "azurerm" {
+      resource_group_name  = "sre-hackathon"
+      storage_account_name = "srehackathon12632"
+      container_name       = "terraformtfstate"
+      key                  = "terraform.tfstate"
+      }
 }
 
 provider "azurerm" {
@@ -15,7 +22,6 @@ resource "azurerm_resource_group" "rg" {
   name     = "${var.rg_name}"
   location = "${var.location}"
 }
-
 
 resource "azurerm_kubernetes_cluster" "cluster" {
   name                = "${var.clustername}"
@@ -59,7 +65,7 @@ role_based_access_control {
 
 }
 
- output "client_certificate" {
+output "client_certificate" {
    value     = azurerm_kubernetes_cluster.cluster.kube_config[0].client_certificate
    sensitive = true
  }
